@@ -42,7 +42,7 @@
       .font-mono {
         font-family: 'Fira Code', monospace;
       }
-      /* Custom scrollbars for controls panel */
+      /* Custom scrollbars */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -56,16 +56,6 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #374151;
-      }
-      /* Glow effect for matrix themes */
-      .glow-green {
-        text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
-      }
-      .glow-amber {
-        text-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
-      }
-      .glow-cyan {
-        text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
       }
       /* Canvas container sizing */
       #asciiCanvas {
@@ -96,12 +86,12 @@
       <div id="vocabStats" class="hidden md:flex items-center gap-3 bg-slate-950/60 border border-slate-800 px-3 py-1.5 rounded-full text-slate-400 font-mono">
         <span class="flex items-center gap-1.5"><i class="ph-fill ph-database text-emerald-400"></i> Vocabulary: <strong id="statWordCount" class="text-slate-200">0</strong> words</span>
         <span class="text-slate-700">|</span>
-        <span class="flex items-center gap-1.5"><i class="ph-bold ph-text-t text-cyan-400"></i> Range: <strong id="statLengthRange" class="text-slate-200">1-10</strong> chars</span>
+        <span class="flex items-center gap-1.5"><i class="ph-bold ph-text-t text-cyan-400"></i> Lengths: <strong id="statLengthRange" class="text-slate-200">1-10</strong></span>
       </div>
 
       <button id="btnOpenCsvModal" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-lg transition font-medium text-xs">
         <i class="ph-bold ph-file-csv text-emerald-400 text-sm"></i>
-        <span>Manage Words CSV</span>
+        <span>Dataset Config</span>
       </button>
     </div>
   </header>
@@ -159,7 +149,7 @@
 
           <div class="grid grid-cols-4 gap-2">
             <button class="preset-res px-2 py-1 text-[11px] font-mono rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-res="40">Low (40)</button>
-            <button class="preset-res px-2 py-1 text-[11px] font-mono rounded bg-emerald-950/80 text-emerald-400 border border-emerald-700 transition" data-res="80">Med (80)</button>
+            <button class="preset-res px-2 py-1 text-[11px] font-mono rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-res="80">Med (80)</button>
             <button class="preset-res px-2 py-1 text-[11px] font-mono rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-res="120">High (120)</button>
             <button class="preset-res px-2 py-1 text-[11px] font-mono rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-res="160">Ultra (160)</button>
           </div>
@@ -176,23 +166,16 @@
           <div>
             <label class="text-xs text-slate-400 block mb-1.5">Target Word Length</label>
             <select id="selectWordLength" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500">
-              <option value="all">All Available Lengths (1 to 10)</option>
-              <option value="1">1-Letter Words Only</option>
-              <option value="2">2-Letter Words Only</option>
+              <option value="5">5-Letter Words Only</option>
+              <option value="3,4,5,6,7,8,9,10">All Available Lengths (3 to 10)</option>
               <option value="3">3-Letter Words Only</option>
               <option value="4">4-Letter Words Only</option>
-              <option value="5">5-Letter Words Only</option>
-              <option value="1,2">Short Words (1 & 2 letters)</option>
+              <option value="6">6-Letter Words Only</option>
+              <option value="7">7-Letter Words Only</option>
+              <option value="8">8-Letter Words Only</option>
+              <option value="9">9-Letter Words Only</option>
+              <option value="10">10-Letter Words Only</option>
               <option value="3,4">Medium Words (3 & 4 letters)</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="text-xs text-slate-400 block mb-1.5">Density Mapping Strategy</label>
-            <select id="selectMappingMode" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500">
-              <option value="ink">Calculated Ink Coverage (True Density)</option>
-              <option value="length">Word Length (Short -> Long)</option>
-              <option value="alphabetical">Alphabetical Sequence</option>
             </select>
           </div>
         </div>
@@ -225,33 +208,15 @@
               </select>
             </div>
           </div>
-
-          <!-- Brightness & Contrast -->
-          <div class="space-y-3 pt-1">
-            <div>
-              <div class="flex justify-between text-xs text-slate-400 mb-1">
-                <span>Contrast Boost</span>
-                <span id="valContrast" class="font-mono text-slate-300">1.0</span>
-              </div>
-              <input type="range" id="sliderContrast" min="0.5" max="2.5" step="0.1" value="1.0" 
-                class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+          
+          <div class="space-y-2 pt-1 border-t border-slate-800/60">
+            <div class="text-[11px] text-slate-400">
+              <span class="text-slate-500">GitHub Repository:</span><br>
+              <a href="https://github.com/Ashwin-055/WordVid" target="_blank" class="text-emerald-400 hover:underline">github.com/Ashwin-055/WordVid</a>
             </div>
-
-            <div>
-              <div class="flex justify-between text-xs text-slate-400 mb-1">
-                <span>Brightness Offset</span>
-                <span id="valBrightness" class="font-mono text-slate-300">0</span>
-              </div>
-              <input type="range" id="sliderBrightness" min="-50" max="50" step="5" value="0" 
-                class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
-            </div>
-
-            <div class="flex items-center justify-between pt-1">
-              <span class="text-xs text-slate-300">Invert Luminance</span>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" id="checkInvert" class="sr-only peer">
-                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
-              </label>
+            <div class="text-[11px] text-slate-400">
+              <span class="text-slate-500">Kaggle Dataset Source:</span><br>
+              <a href="https://www.kaggle.com/code/virus101/opensourceproject1" target="_blank" class="text-cyan-400 hover:underline truncate block">kaggle.com/code/virus101/opensourceproject1</a>
             </div>
           </div>
         </div>
@@ -264,45 +229,21 @@
       
       <!-- Display Toolbar -->
       <div class="h-10 border-b border-slate-800 bg-slate-900/60 px-4 flex items-center justify-between text-xs shrink-0">
-        <div class="flex items-center space-x-4">
-          <button id="toggleOriginalView" class="text-slate-400 hover:text-white flex items-center gap-1.5 px-2 py-1 rounded bg-slate-800/60 border border-slate-700/60">
-            <i class="ph-bold ph-split-screens text-emerald-400"></i>
-            <span id="toggleOriginalText">Show Original Video Side-by-Side</span>
-          </button>
-        </div>
-
         <div class="flex items-center space-x-2">
           <span class="text-slate-500 font-mono text-[11px]" id="fpsCounter">FPS: --</span>
           <span class="text-slate-700">|</span>
-          <!-- Export Options -->
-          <div class="relative inline-block text-left">
-            <button id="btnExportMenu" class="flex items-center gap-1.5 px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-semibold rounded-md transition">
-              <i class="ph-bold ph-download-simple"></i>
-              <span>Export</span>
-              <i class="ph-bold ph-caret-down text-xs"></i>
-            </button>
-            <div id="exportDropdown" class="hidden absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-xl z-50 py-1">
-              <button id="exportFramePng" class="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 flex items-center gap-2">
-                <i class="ph-bold ph-image text-emerald-400"></i> Export Frame as PNG
-              </button>
-              <button id="exportTextSnapshot" class="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 flex items-center gap-2">
-                <i class="ph-bold ph-file-text text-cyan-400"></i> Copy ASCII Text Snapshot
-              </button>
-            </div>
-          </div>
+          <span class="text-slate-400 text-[11px]">Words dataset taken from Wikipedia Structured Dataset in Kaggle</span>
         </div>
       </div>
 
       <!-- Main Canvas / Video Container -->
       <div class="flex-1 flex overflow-hidden p-4 relative items-center justify-center">
-        
-        <!-- Side by side container -->
         <div id="viewportContainer" class="w-full h-full flex items-center justify-center gap-4">
           
           <!-- Hidden Native Video for frame extraction -->
           <video id="sourceVideo" class="hidden" playsinline loop muted></video>
           
-          <!-- Visible Original Video Preview (Toggled by user) -->
+          <!-- Visible Original Video Preview -->
           <div id="originalVideoWrapper" class="hidden h-full flex-1 border border-slate-800 rounded-xl overflow-hidden bg-black flex items-center justify-center relative">
             <video id="previewVideo" class="max-w-full max-h-full object-contain"></video>
             <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur border border-slate-700 px-2.5 py-1 rounded text-[11px] font-mono text-slate-300">
@@ -312,7 +253,7 @@
 
           <!-- Main Output ASCII Canvas Container -->
           <div id="asciiWrapper" class="h-full flex-1 border border-slate-800 rounded-xl overflow-hidden bg-black flex items-center justify-center relative p-2 shadow-2xl">
-            <!-- Offscreen hidden processing canvas -->
+            <!-- Offscreen canvas for frame sampling -->
             <canvas id="offscreenCanvas" class="hidden"></canvas>
             
             <!-- Visible Canvas -->
@@ -324,7 +265,7 @@
                 <i class="ph-duotone ph-film-strip text-3xl"></i>
               </div>
               <h3 class="text-lg font-semibold text-slate-200">No Video Loaded</h3>
-              <p class="text-xs text-slate-400 max-w-sm mt-1 mb-4">Upload a video to convert frames into live ASCII Art using your custom word dictionary.</p>
+              <p class="text-xs text-slate-400 max-w-sm mt-1 mb-4">Upload a video to convert frames into live ASCII Art using words loaded automatically from <code class="text-emerald-400">Words.csv</code>.</p>
               <button onclick="document.getElementById('videoFileInput').click()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs rounded-lg transition shadow-lg shadow-emerald-500/10">
                 Select Video File
               </button>
@@ -332,11 +273,10 @@
           </div>
 
         </div>
-
       </div>
 
+      <!-- Video Control Bar -->
       <div class="h-16 border-t border-slate-800 bg-slate-900/80 backdrop-blur px-6 flex items-center justify-between gap-4 shrink-0">
-        <!-- Play / Pause / Rewind -->
         <div class="flex items-center space-x-2">
           <button id="btnRewind" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">
             <i class="ph-bold ph-rewind text-lg"></i>
@@ -346,7 +286,6 @@
           </button>
         </div>
 
-        <!-- Timeline / Seekbar -->
         <div class="flex-1 flex items-center space-x-3">
           <span id="timeCurrent" class="font-mono text-xs text-slate-400">00:00</span>
           <input type="range" id="videoSeekbar" value="0" min="0" max="100" step="0.1" 
@@ -354,7 +293,6 @@
           <span id="timeTotal" class="font-mono text-xs text-slate-400">00:00</span>
         </div>
 
-        <!-- Mute / Loop Controls -->
         <div class="flex items-center space-x-2 border-l border-slate-800 pl-4">
           <button id="btnToggleMute" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">
             <i class="ph-bold ph-speaker-high text-lg" id="muteIcon"></i>
@@ -368,6 +306,7 @@
     </main>
   </div>
 
+  <!-- CSV Modal -->
   <div id="csvModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col overflow-hidden max-h-[90vh]">
       
@@ -381,29 +320,31 @@
 
       <div class="p-6 space-y-5 overflow-y-auto flex-1">
         <div>
-          <label class="text-xs font-semibold text-slate-300 block mb-1">Current Dataset Source</label>
-          <p class="text-xs text-slate-400 mb-3">Loaded with words extracted by length from your <code class="bg-slate-950 px-1.5 py-0.5 rounded text-emerald-400 font-mono">Words.csv</code> dataset.</p>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-300">Loaded Dataset Sample</label>
+            <span id="csvFetchStatus" class="text-[10px] text-emerald-400 font-mono bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Fetching from GitHub...</span>
+          </div>
           
-          <!-- Sample of active loaded dictionary -->
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 max-h-40 overflow-y-auto text-xs font-mono space-y-1" id="dictPreviewList">
-            <!-- Dynamic sample populated by JS -->
           </div>
         </div>
 
         <div>
           <label class="text-xs font-semibold text-slate-300 block mb-1">Upload Custom CSV</label>
           <input type="file" id="csvFileInput" accept=".csv,.txt" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-emerald-400 hover:file:bg-slate-700 cursor-pointer">
-          <p class="text-[11px] text-slate-500 mt-1">Supports standard CSV with column headers ("1", "2", "3"..."10") or single-column word lists.</p>
         </div>
 
         <div>
-          <label class="text-xs font-semibold text-slate-300 block mb-1">Or Paste Raw CSV / Text Content</label>
-          <textarea id="csvPasteArea" rows="4" placeholder="Paste CSV text here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500"></textarea>
+          <label class="text-xs font-semibold text-slate-300 block mb-1">Or Paste CSV Content</label>
+          <textarea id="csvPasteArea" rows="4" placeholder="1,2,3,4,5..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500"></textarea>
         </div>
       </div>
 
       <div class="p-4 border-t border-slate-800 bg-slate-950/50 flex justify-between items-center">
-        <button id="btnResetDefaultCsv" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition">Reset to Default Words.csv</button>
+        <button id="btnFetchGitHubCsv" class="px-3 py-1.5 text-xs text-emerald-400 hover:text-emerald-300 transition flex items-center gap-1">
+          <i class="ph-bold ph-arrows-clockwise"></i>
+          <span>Re-fetch Words.csv from GitHub</span>
+        </button>
         <div class="flex space-x-2">
           <button id="btnApplyCsvPaste" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs rounded-lg transition">Apply Dataset</button>
         </div>
@@ -412,42 +353,39 @@
     </div>
   </div>
 
-  <!-- Notification Toast -->
+  <!-- Toast -->
   <div id="toast" class="fixed bottom-20 right-6 bg-emerald-500 text-slate-950 font-medium px-4 py-2.5 rounded-xl shadow-lg opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2 z-50 text-xs flex items-center gap-2">
     <i class="ph-bold ph-check-circle text-base"></i>
     <span id="toastMsg">Action completed</span>
   </div>
 
   <script>
-    /**
-     * Default Embedded Vocabulary dataset initialized from standard common English words
-     * grouped by length (1 to 10 letters).
-     */
+    // Direct raw content URL for automatic fetching
+    const GITHUB_WORDS_CSV_URL = "https://raw.githubusercontent.com/Ashwin-055/WordVid/main/Words.csv";
+
+    // Fallback dictionary
     const DEFAULT_WORD_DATASET = {
       "1": ["a", "i", "o"],
-      "2": ["it", "is", "in", "to", "on", "at", "by", "he", "we", "or", "an", "my", "so", "up", "if", "no", "do", "go", "us", "am"],
-      "3": ["the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "her", "was", "one", "our", "out", "day", "get", "has", "him", "his", "how", "man", "new", "now", "old", "see", "two", "way", "who", "boy", "did", "its", "let", "put", "say", "she", "too", "use"],
-      "4": ["that", "with", "have", "this", "will", "your", "from", "they", "know", "want", "been", "good", "much", "some", "time", "very", "when", "come", "here", "just", "like", "long", "make", "many", "over", "only", "such", "take", "than", "them", "well", "were", "word", "work", "world"],
-      "5": ["about", "other", "which", "their", "there", "first", "would", "these", "click", "price", "state", "email", "music", "after", "video", "where", "books", "links", "years", "order", "items", "group", "under", "games", "could", "great", "hotel", "store", "terms", "right"],
-      "6": ["people", "system", "search", "online", "source", "number", "values", "public", "school", "series", "action", "detail", "safety", "health", "medium", "market", "policy", "center", "report", "member"],
-      "7": ["program", "network", "science", "service", "company", "product", "element", "content", "version", "display"],
-      "8": ["security", "computer", "language", "hardware", "software", "building", "industry", "standard"],
-      "9": ["community", "education", "framework", "structure", "technical"],
-      "10": ["technology", "management", "university", "production", "government"]
+      "2": ["it", "is", "in", "to", "on", "at", "by", "he", "we", "or"],
+      "3": ["the", "and", "for", "are", "but", "not", "you", "all", "any", "can"],
+      "4": ["that", "with", "have", "this", "will", "your", "from", "they", "know"],
+      "5": ["about", "other", "which", "their", "there", "first", "would", "these"],
+      "6": ["people", "system", "search", "online", "source", "number", "values"],
+      "7": ["program", "network", "science", "service", "company", "product"],
+      "8": ["security", "computer", "language", "hardware", "software"],
+      "9": ["community", "education", "framework", "structure"],
+      "10": ["technology", "management", "university", "production"]
     };
 
-    // State Variables
     let vocabulary = { ...DEFAULT_WORD_DATASET };
-    let processedDensityList = []; // Sorted array of words by ink visual brightness
+    let processedDensityList = [];
     
-    // Video Engine State
     let videoFile = null;
     let isPlaying = false;
     let animationFrameReq = null;
     let lastFrameTime = 0;
     let fps = 0;
 
-    // Canvas Elements
     const sourceVideo = document.getElementById('sourceVideo');
     const previewVideo = document.getElementById('previewVideo');
     const asciiCanvas = document.getElementById('asciiCanvas');
@@ -455,37 +393,23 @@
     const offscreenCanvas = document.getElementById('offscreenCanvas');
     const offscreenCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true });
 
-    // UI Elements
     const sliderResolution = document.getElementById('sliderResolution');
     const colCountNum = document.getElementById('colCountNum');
     const resDisplayVal = document.getElementById('resDisplayVal');
     const selectWordLength = document.getElementById('selectWordLength');
-    const selectMappingMode = document.getElementById('selectMappingMode');
     const selectColorPalette = document.getElementById('selectColorPalette');
     const selectFontFamily = document.getElementById('selectFontFamily');
-    const sliderContrast = document.getElementById('sliderContrast');
-    const sliderBrightness = document.getElementById('sliderBrightness');
-    const valContrast = document.getElementById('valContrast');
-    const valBrightness = document.getElementById('valBrightness');
-    const checkInvert = document.getElementById('checkInvert');
-    
     const btnPlayPause = document.getElementById('btnPlayPause');
     const playPauseIcon = document.getElementById('playPauseIcon');
     const videoSeekbar = document.getElementById('videoSeekbar');
     const timeCurrent = document.getElementById('timeCurrent');
     const timeTotal = document.getElementById('timeTotal');
 
-    
-    /**
-     * Measures the visual ink density of a string by rendering it onto an offscreen canvas
-     * and counting non-transparent/dark pixels.
-     */
     function calculateWordInkDensity(word, fontFamily = 'Fira Code') {
       const canvas = document.createElement('canvas');
       canvas.width = 60;
       canvas.height = 30;
       const c = canvas.getContext('2d');
-      
       c.fillStyle = '#000000';
       c.fillRect(0, 0, 60, 30);
       c.fillStyle = '#ffffff';
@@ -497,58 +421,33 @@
       const imgData = c.getImageData(0, 0, 60, 30).data;
       let totalInk = 0;
       for (let i = 0; i < imgData.length; i += 4) {
-        // Luminance of character ink
         totalInk += (imgData[i] + imgData[i+1] + imgData[i+2]) / 3;
       }
       return totalInk;
     }
 
-    /**
-     * Prepares and sorts the active vocabulary according to chosen length filters and mapping strategy.
-     */
     function rebuildDensityList() {
       const selectedLengths = selectWordLength.value;
       let targetWords = [];
 
-      if (selectedLengths === 'all') {
-        Object.values(vocabulary).forEach(list => {
-          if (Array.isArray(list)) targetWords.push(...list);
-        });
-      } else {
-        const lengths = selectedLengths.split(',');
-        lengths.forEach(len => {
-          if (vocabulary[len]) targetWords.push(...vocabulary[len]);
-        });
-      }
+      const lengths = selectedLengths.split(',');
+      lengths.forEach(len => {
+        if (vocabulary[len]) targetWords.push(...vocabulary[len]);
+      });
 
-      // Fallback if empty
       if (targetWords.length === 0) {
         targetWords = ['#', '@', '%', '*', '+', ':', '.', ' '];
       }
 
-      // Unique words
       targetWords = Array.from(new Set(targetWords));
-
-      const strategy = selectMappingMode.value;
       const font = selectFontFamily.value;
 
-      if (strategy === 'ink') {
-        // Compute ink density for each word
-        const mapped = targetWords.map(word => ({
-          word,
-          density: calculateWordInkDensity(word, font)
-        }));
-        // Sort from lowest ink (darker/sparse) to highest ink (brighter/dense)
-        mapped.sort((a, b) => a.density - b.density);
-        processedDensityList = mapped.map(m => m.word);
-      } else if (strategy === 'length') {
-        targetWords.sort((a, b) => a.length - b.length);
-        processedDensityList = targetWords;
-      } else {
-        // Alphabetical
-        targetWords.sort();
-        processedDensityList = targetWords;
-      }
+      const mapped = targetWords.map(word => ({
+        word,
+        density: calculateWordInkDensity(word, font)
+      }));
+      mapped.sort((a, b) => a.density - b.density);
+      processedDensityList = mapped.map(m => m.word);
 
       updateVocabStats(targetWords.length);
     }
@@ -560,17 +459,15 @@
       const maxKey = keys.length ? Math.max(...keys.map(Number)) : 10;
       document.getElementById('statLengthRange').textContent = `${minKey}-${maxKey}`;
 
-      // Update modal preview
       const previewEl = document.getElementById('dictPreviewList');
       previewEl.innerHTML = '';
       keys.sort((a,b)=>a-b).forEach(key => {
         const row = document.createElement('div');
         row.className = 'text-slate-400';
-        row.innerHTML = `<span class="text-emerald-400 font-bold">[Length ${key}]:</span> ${vocabulary[key].slice(0, 10).join(', ')}${vocabulary[key].length > 10 ? '...' : ''}`;
+        row.innerHTML = `<span class="text-emerald-400 font-bold">[Len ${key}]:</span> ${vocabulary[key].slice(0, 8).join(', ')}${vocabulary[key].length > 8 ? '...' : ''}`;
         previewEl.appendChild(row);
       });
     }
-
 
     function parseCSV(csvText) {
       const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
@@ -578,12 +475,11 @@
 
       const newVocab = {};
 
-      // Check if header exists with numbers
+      // Parse headers
       const firstLine = lines[0].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
       const hasNumberHeaders = firstLine.some(header => !isNaN(parseInt(header)));
 
       if (hasNumberHeaders) {
-        // Wide format: header is column length ("1", "2", "3", etc.)
         firstLine.forEach(header => {
           const num = parseInt(header);
           if (!isNaN(num)) newVocab[num] = [];
@@ -599,7 +495,6 @@
           });
         }
       } else {
-        // Long format or raw list: iterate lines
         lines.forEach(line => {
           const parts = line.split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
           parts.forEach(word => {
@@ -612,42 +507,59 @@
         });
       }
 
-      // Cleanup & deduplicate
       Object.keys(newVocab).forEach(k => {
         newVocab[k] = Array.from(new Set(newVocab[k]));
       });
 
       vocabulary = newVocab;
       rebuildDensityList();
-      showToast("CSV dataset updated successfully!");
     }
 
+    // Automatically fetch from GitHub repository
+    async function fetchGitHubWordsCSV() {
+      const statusEl = document.getElementById('csvFetchStatus');
+      if (statusEl) statusEl.textContent = "Fetching from GitHub...";
+
+      try {
+        const response = await fetch(GITHUB_WORDS_CSV_URL);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const csvText = await response.text();
+        parseCSV(csvText);
+        
+        if (statusEl) {
+          statusEl.textContent = "GitHub CSV Active";
+          statusEl.className = "text-[10px] text-emerald-400 font-mono bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800";
+        }
+        showToast("Fetched Words.csv automatically from GitHub!");
+      } catch (err) {
+        console.warn("Could not fetch Words.csv from GitHub, using default dataset.", err);
+        if (statusEl) {
+          statusEl.textContent = "Using Local Backup";
+          statusEl.className = "text-[10px] text-amber-400 font-mono bg-amber-950 px-2 py-0.5 rounded border border-amber-800";
+        }
+      }
+    }
 
     function renderAsciiFrame() {
-      if (!sourceVideo || sourceVideo.paused || sourceVideo.ended || sourceVideo.readyState < 2) {
-        return;
-      }
+      if (!sourceVideo || sourceVideo.paused || sourceVideo.ended || sourceVideo.readyState < 2) return;
 
       const cols = parseInt(sliderResolution.value);
       const videoWidth = sourceVideo.videoWidth || 640;
       const videoHeight = sourceVideo.videoHeight || 360;
       const aspectRatio = videoHeight / videoWidth;
 
-      // Monospace font character aspect ratio (~0.55 width to height)
       const fontAspect = 0.55;
       const rows = Math.floor(cols * aspectRatio * fontAspect);
 
-      // Resize offscreen processing canvas
       if (offscreenCanvas.width !== cols || offscreenCanvas.height !== rows) {
         offscreenCanvas.width = cols;
         offscreenCanvas.height = rows;
       }
 
-      // Draw original video frame onto tiny offscreen grid
       offscreenCtx.drawImage(sourceVideo, 0, 0, cols, rows);
       const frameData = offscreenCtx.getImageData(0, 0, cols, rows).data;
 
-      // Adjust output display canvas resolution
       const charCellWidth = 10;
       const charCellHeight = 16;
       const outWidth = cols * charCellWidth;
@@ -658,22 +570,16 @@
         asciiCanvas.height = outHeight;
       }
 
-      // Clear main canvas background
-      ctx.fillStyle = '#030712'; // dark background
+      ctx.fillStyle = '#030712';
       ctx.fillRect(0, 0, outWidth, outHeight);
 
-      // Configure font
       const fontFamily = selectFontFamily.value;
       ctx.font = `600 13px "${fontFamily}", monospace`;
       ctx.textBaseline = 'top';
 
-      const contrast = parseFloat(sliderContrast.value);
-      const brightness = parseInt(sliderBrightness.value);
-      const isInverted = checkInvert.checked;
       const palette = selectColorPalette.value;
       const wordsCount = processedDensityList.length;
 
-      // Render cells
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
           const idx = (y * cols + x) * 4;
@@ -681,22 +587,12 @@
           let g = frameData[idx + 1];
           let b = frameData[idx + 2];
 
-          // 1. Calculate Standard Luminance (ITU-R BT.601)
           let luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-
-          // 2. Contrast & Brightness Adjustment
-          luminance = (luminance - 128) * contrast + 128 + brightness;
           luminance = Math.max(0, Math.min(255, luminance));
 
-          if (isInverted) {
-            luminance = 255 - luminance;
-          }
-
-          // 3. Map Luminance to Word in Vocabulary
           const wordIndex = Math.floor((luminance / 256) * wordsCount);
           const word = processedDensityList[Math.min(wordsCount - 1, wordIndex)] || ' ';
 
-          // 4. Determine Render Color
           if (palette === 'original') {
             ctx.fillStyle = `rgb(${r},${g},${b})`;
           } else if (palette === 'matrix') {
@@ -706,17 +602,14 @@
           } else if (palette === 'cyber') {
             ctx.fillStyle = `rgb(6, ${Math.floor(180 + (luminance/255)*75)}, 212)`;
           } else {
-            // Monochrome B&W
             const val = Math.floor(luminance);
             ctx.fillStyle = `rgb(${val},${val},${val})`;
           }
 
-          // Render character string
           ctx.fillText(word, x * charCellWidth, y * charCellHeight);
         }
       }
 
-      // Calculate FPS
       const now = performance.now();
       if (lastFrameTime) {
         fps = Math.round(1000 / (now - lastFrameTime));
@@ -732,7 +625,6 @@
         animationFrameReq = requestAnimationFrame(renderLoop);
       }
     }
-
 
     function loadVideo(file) {
       videoFile = file;
@@ -795,16 +687,12 @@
       }, 3000);
     }
 
-
     window.addEventListener('DOMContentLoaded', () => {
-      // Initialize density lists
       rebuildDensityList();
+      fetchGitHubWordsCSV();
 
-      // Video File Input
       document.getElementById('videoFileInput').addEventListener('change', (e) => {
-        if (e.target.files && e.target.files[0]) {
-          loadVideo(e.target.files[0]);
-        }
+        if (e.target.files && e.target.files[0]) loadVideo(e.target.files[0]);
       });
 
       document.getElementById('btnChangeVideo').addEventListener('click', () => {
@@ -815,7 +703,6 @@
         document.getElementById('videoSourceInfo').classList.add('hidden');
       });
 
-      // Resolution controls
       sliderResolution.addEventListener('input', (e) => {
         const val = e.target.value;
         colCountNum.textContent = val;
@@ -825,30 +712,15 @@
 
       document.querySelectorAll('.preset-res').forEach(btn => {
         btn.addEventListener('click', () => {
-          const res = btn.getAttribute('data-res');
-          sliderResolution.value = res;
+          sliderResolution.value = btn.getAttribute('data-res');
           sliderResolution.dispatchEvent(new Event('input'));
         });
       });
 
-      // Filter & Color mode changes
       selectWordLength.addEventListener('change', () => { rebuildDensityList(); if (!isPlaying) renderAsciiFrame(); });
-      selectMappingMode.addEventListener('change', () => { rebuildDensityList(); if (!isPlaying) renderAsciiFrame(); });
       selectFontFamily.addEventListener('change', () => { rebuildDensityList(); if (!isPlaying) renderAsciiFrame(); });
       selectColorPalette.addEventListener('change', () => { if (!isPlaying) renderAsciiFrame(); });
 
-      // Sliders
-      sliderContrast.addEventListener('input', (e) => {
-        valContrast.textContent = e.target.value;
-        if (!isPlaying) renderAsciiFrame();
-      });
-      sliderBrightness.addEventListener('input', (e) => {
-        valBrightness.textContent = e.target.value;
-        if (!isPlaying) renderAsciiFrame();
-      });
-      checkInvert.addEventListener('change', () => { if (!isPlaying) renderAsciiFrame(); });
-
-      // Playback Controls
       btnPlayPause.addEventListener('click', togglePlay);
       document.getElementById('btnRewind').addEventListener('click', () => {
         sourceVideo.currentTime = 0;
@@ -870,34 +742,18 @@
       document.getElementById('btnToggleLoop').addEventListener('click', (e) => {
         sourceVideo.loop = !sourceVideo.loop;
         previewVideo.loop = sourceVideo.loop;
-        const btn = e.currentTarget;
-        if (sourceVideo.loop) {
-          btn.className = "p-2 text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 rounded-lg transition";
-        } else {
-          btn.className = "p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition";
-        }
+        e.currentTarget.className = sourceVideo.loop 
+          ? "p-2 text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 rounded-lg transition" 
+          : "p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition";
       });
 
-      // View Toggles
-      document.getElementById('toggleOriginalView').addEventListener('click', () => {
-        const wrapper = document.getElementById('originalVideoWrapper');
-        const isHidden = wrapper.classList.contains('hidden');
-        if (isHidden) {
-          wrapper.classList.remove('hidden');
-          document.getElementById('toggleOriginalText').textContent = "Hide Original Video";
-        } else {
-          wrapper.classList.add('hidden');
-          document.getElementById('toggleOriginalText').textContent = "Show Original Video Side-by-Side";
-        }
-      });
-
-      // CSV Modal Controls
       document.getElementById('btnOpenCsvModal').addEventListener('click', () => {
         document.getElementById('csvModal').classList.remove('hidden');
       });
       document.getElementById('btnCloseCsvModal').addEventListener('click', () => {
         document.getElementById('csvModal').classList.add('hidden');
       });
+      document.getElementById('btnFetchGitHubCsv').addEventListener('click', fetchGitHubWordsCSV);
 
       document.getElementById('csvFileInput').addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -905,6 +761,7 @@
           reader.onload = (evt) => {
             parseCSV(evt.target.result);
             document.getElementById('csvModal').classList.add('hidden');
+            showToast("Custom CSV dataset applied!");
           };
           reader.readAsText(e.target.files[0]);
         }
@@ -915,68 +772,8 @@
         if (text.trim()) {
           parseCSV(text);
           document.getElementById('csvModal').classList.add('hidden');
+          showToast("Pasted dataset applied!");
         }
-      });
-
-      document.getElementById('btnResetDefaultCsv').addEventListener('click', () => {
-        vocabulary = { ...DEFAULT_WORD_DATASET };
-        rebuildDensityList();
-        showToast("Reset to default dataset!");
-        document.getElementById('csvModal').classList.add('hidden');
-      });
-
-      // Export Menu
-      const exportMenu = document.getElementById('exportDropdown');
-      document.getElementById('btnExportMenu').addEventListener('click', () => {
-        exportMenu.classList.toggle('hidden');
-      });
-
-      document.getElementById('exportFramePng').addEventListener('click', () => {
-        exportMenu.classList.add('hidden');
-        const link = document.createElement('a');
-        link.download = `ascii-frame-${Math.floor(Date.now()/1000)}.png`;
-        link.href = asciiCanvas.toDataURL('image/png');
-        link.click();
-        showToast("Frame exported as PNG!");
-      });
-
-      document.getElementById('exportTextSnapshot').addEventListener('click', () => {
-        exportMenu.classList.add('hidden');
-        
-        // Generate pure text representation of current frame
-        const cols = parseInt(sliderResolution.value);
-        const rows = Math.floor(offscreenCanvas.height);
-        const frameData = offscreenCtx.getImageData(0, 0, cols, rows).data;
-        const contrast = parseFloat(sliderContrast.value);
-        const brightness = parseInt(sliderBrightness.value);
-        const isInverted = checkInvert.checked;
-        const wordsCount = processedDensityList.length;
-
-        let textOutput = '';
-        for (let y = 0; y < rows; y++) {
-          for (let x = 0; x < cols; x++) {
-            const idx = (y * cols + x) * 4;
-            let luminance = 0.299 * frameData[idx] + 0.587 * frameData[idx+1] + 0.114 * frameData[idx+2];
-            luminance = (luminance - 128) * contrast + 128 + brightness;
-            luminance = Math.max(0, Math.min(255, luminance));
-            if (isInverted) luminance = 255 - luminance;
-            
-            const wordIndex = Math.floor((luminance / 256) * wordsCount);
-            const word = processedDensityList[Math.min(wordsCount - 1, wordIndex)] || ' ';
-            textOutput += word;
-          }
-          textOutput += '\n';
-        }
-
-        // Copy text to clipboard using document.execCommand fallback
-        const textarea = document.createElement('textarea');
-        textarea.value = textOutput;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-
-        showToast("ASCII snapshot copied to clipboard!");
       });
     });
   </script>
